@@ -29,6 +29,14 @@ app.use('/api/blood-request', bloodRequestRoutes)
 app.use('/api/blood-issue', bloodIssueRoutes)
 app.use('/api/comment', commentRoutes)
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+
 // Set static folder
 const __dirname = path.resolve()
 
