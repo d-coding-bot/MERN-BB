@@ -17,6 +17,13 @@ connectDB()
 
 const app = express()
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+  next();
+});
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
@@ -28,14 +35,6 @@ app.use('/api/blood-store', bloodStoreRoutes)
 app.use('/api/blood-request', bloodRequestRoutes)
 app.use('/api/blood-issue', bloodIssueRoutes)
 app.use('/api/comment', commentRoutes)
-
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
 
 // Set static folder
 const __dirname = path.resolve()
